@@ -5,6 +5,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.core.view.GestureDetectorCompat;
+
 /*
 Usage:
   myView.setOnTouchListener(new OnSwipeTouchListener(this) {
@@ -17,9 +19,18 @@ Usage:
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
     private GestureDetector gestureDetector;
+    MainActivity mainActivity;
+    GestureDetectorCompat gestureDetectorCompat;
 
-    public OnSwipeTouchListener(Context c) {
+    /**
+     * Constuctor
+     * @param ma
+     * @param c
+     */
+    public OnSwipeTouchListener(MainActivity ma, Context c) {
+        this.mainActivity = ma;
         gestureDetector = new GestureDetector(c, new GestureListener());
+        gestureDetectorCompat = new GestureDetectorCompat(this.mainActivity, new MyGestureListener());
     }
 
     public boolean onTouch(final View view, final MotionEvent motionEvent) {
@@ -77,5 +88,15 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     }
 
     public void onSwipeDown() {
+    }
+
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            mainActivity.onDoubleTap();
+            return super.onDoubleTap(e);
+        }
+
     }
 }
