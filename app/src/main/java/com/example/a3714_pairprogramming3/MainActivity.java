@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onDoubleTap() {
+        Toast.makeText(MainActivity.this, "Double tap", Toast.LENGTH_SHORT).show();
         Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takePicIntent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(takePicIntent, REQUEST_IMAGE);
